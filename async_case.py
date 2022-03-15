@@ -211,7 +211,11 @@ class IsolatedAsyncioTestCase(_TestCaseCompat):
 
         try:
             # cancel all tasks
-            to_cancel = asyncio.all_tasks(loop)
+            if hasattr(asyncio, 'all_tasks'):
+                to_cancel = asyncio.all_tasks(loop)
+            else:
+                to_cancel = asyncio.Task.all_tasks(loop)
+
             if not to_cancel:
                 return
 
