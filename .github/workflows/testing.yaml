@@ -1,0 +1,20 @@
+name: Testing
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    strategy:
+      matrix:
+        python: ["3.6", "3.7"]
+    container:
+      image: python:${{ matrix.python }}-alpine
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Install testing dependencies
+        run: pip3 install -e .
+
+      - name: Run tests
+        run: python3 -m unittest tests -bfv
