@@ -6,7 +6,7 @@ jobs:
     timeout-minutes: 3
     strategy:
       matrix:
-        python: ["3.6", "3.7"]
+        python: ["3.5", "3.6", "3.7"]
     container:
       image: python:${{ matrix.python }}-alpine
     steps:
